@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Dashboard</title>
+</head>
+<body>
+    <h2>Verified Payments</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Order ID</th>
+            <th>Payment ID</th>
+            <th>Amount</th>
+            <th>Status</th>
+        </tr>
+        {% for payment in payments %}
+        <tr>
+            <td>{{ payment.id }}</td>
+            <td>{{ payment.razorpay_order_id }}</td>
+            <td>{{ payment.razorpay_payment_id }}</td>
+            <td>₹{{ payment.amount|floatformat:2|div:100 }}</td>
+            <td>{{ payment.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

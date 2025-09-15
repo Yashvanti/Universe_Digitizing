@@ -1,0 +1,352 @@
+{% extends 'embroidery/homebase.html' %}
+{% load static %}
+{% block content %}
+  <head>
+    <title>Vector Art Services</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+      }
+      .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .breadcrumb {
+        font-size: 14px;
+        color: #f7941d;
+        margin-bottom: 20px;
+      }
+      .breadcrumb a {
+        color: #f7941d;
+        text-decoration: none;
+      }
+      .main-content {
+        display: flex;
+        justify-content: space-between;
+      }
+      .main-content img {
+        max-width: 100%;
+        height: auto;
+      }
+      .product-details {
+        width: 45%;
+      }
+      .product-details h1 {
+        font-size: 28px;
+        color: #333;
+      }
+      .product-details .rating {
+        color: #f7941d;
+        margin-bottom: 10px;
+      }
+      .product-details .rating span {
+        color: #333;
+        font-size: 14px;
+      }
+      .product-details select,
+      .product-details input[type="file"],
+      .product-details input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .product-details .quantity {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .product-details .quantity input {
+        width: 50px;
+        text-align: center;
+        margin-right: 10px;
+      }
+      .product-details .add-to-cart {
+        background-color: #f7941d;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .tabs {
+        margin-top: 20px;
+      }
+      .tabs button {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      .tabs button.active {
+        background-color: #f7941d;
+        color: #fff;
+        border-color: #f7941d;
+      }
+      .tab-content {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-top: -1px;
+      }
+      .tab-content h2 {
+        font-size: 24px;
+        color: #333;
+      }
+      .tab-content p {
+        font-size: 14px;
+        color: #333;
+        line-height: 1.6;
+      }
+      .tab-content ul {
+        list-style-type: disc;
+        padding-left: 20px;
+      }
+      .tab-content ul li {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 5px;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #FFC0CB;
+        color: #333333;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        width: 60%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    h1 {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    p.intro {
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .faq-item {
+        margin-bottom: 10px;
+    }
+    .faq-question {
+        background-color: #f0f0f0;
+        padding: 10px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .faq-answer {
+        padding: 10px;
+        display: none;
+    }
+    .faq-answer a {
+        color: #333333;
+        text-decoration: underline;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="#"> Home </a>
+        &gt;
+        <a href="#"> Services </a>
+        &gt; Vector Art Services
+      </div>
+      <div class="main-content">
+        <img
+          alt="Vector Art Services Image"
+          height="300"
+          src="{% static 'images/IMG-20240721-WA0236.jpg' %}"
+          width="500"
+        />
+        <div class="product-details">
+          <h1>Vector Art Services</h1>
+          <div class="rating">
+            <i class="fas fa-star"> </i>
+            <i class="fas fa-star"> </i>
+            <i class="fas fa-star"> </i>
+            <i class="fas fa-star"> </i>
+            <i class="fas fa-star"> </i>
+            <span> (624 customer reviews) </span>
+          </div>
+          <select>
+            <option>Complexity</option>
+            <option>Medium (Monogram)</option>
+          </select>
+          <select>
+            <option>File Format</option>
+          </select>
+          <select>
+            <option>Turnaround</option>
+            <option>Normal</option>
+          </select>
+          <input type="file" />
+          <input placeholder="Additional Information" type="text" />
+          <div class="quantity">
+            <input type="number" value="1" />
+            <button class="add-to-cart">Add To Cart</button>
+          </div>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="active">Description</button>
+      </div>
+      <div class="tab-content">
+        <h2>Description</h2>
+        <p>
+          At Universedigitizing we provide vector art services online worldwide. Our
+          customers provide us photos of their imagination and logos, and we
+          convert them into vector art formats.
+        </p>
+        <p>
+          In addition, we also design vector graphic files to be used in screen
+          printing operations. Custom Vector art has a high level of quality,
+          which increases its use, but the reality is that its acceptability is
+          its attractive aspect. Another important factor is vector resizing.
+          Nowadays it is hard to imagine a graphic art without proper vector
+          elements.
+        </p>
+        <h2>Vector Art Services Including:</h2>
+        <ul>
+          <li>Vector art for screen printing</li>
+          <li>Convert raster to vector</li>
+          <li>Jpg to vector</li>
+          <li>Vector artwork</li>
+          <li>Image to vector conversion</li>
+          <li>Convert raster pdf to vector</li>
+          <li>Convert pdf to vector</li>
+          <li>Vector art services</li>
+        </ul>
+        <p>
+          Vector art is used in the advertising industry, because once the
+          graphics are created they will be repeatedly resized without
+          compromising the quality.
+        </p>
+        <h2>Vector Art Services For Screen Printing:</h2>
+        <p>
+          Same as Embroidery, also vector art screen printing can be used
+          anywhere on the fabric. Mostly it is best suited for a t-shirt which
+          gives you an extra edge in style.
+        </p>
+        <p>
+          The combination of screen printing along with Embroidery is a
+          fantastic way to style up your apparel. Both forms of designing can be
+          placed without any limitation. Both of them are entirely different
+          from each other and their combination produces a professional
+          embroidery digitizer and vector art designer.
+        </p>
+        <p>
+          Along with logo digitizing, we also offer our valuable customers that
+          they can get vector graphics.
+        </p>
+        <h2>Vector Art Services With Quality:</h2>
+        <p>
+          Universedigitizing provide quality work at minimal cost and fast turnaround,
+          provides lot of revision until your satisfaction, we have number of
+          satisfied clients check client reviews here.
+        </p>
+      </div>
+    </div>
+    <body>
+      <div class="container">
+          <h1>Frequently Asked Questions</h1>
+          <p class="intro">Need some help with your order or got a burning question that you need answered pronto? Just click on one of the tab below to find the answer...</p>
+          
+          <div class="faq-item">
+              <div class="faq-question">What will be the size of my logo?</div>
+              <div class="faq-answer">
+                  Size of your logo depending on the placement of your logo. So you can simply let us know placement of your logo we will inform you size of your logo. If you want a custom size of your logo you can also let us know size or contact us at info@zdigitizing.com
+              </div>
+          </div>
+          
+          <div class="faq-item">
+              <div class="faq-question">What's your turnaround time?</div>
+              <div class="faq-answer">
+                  Our standard turnaround time is 4 -12 Hours if there is no urgency. Incase you required urgent then we deliver it within 1-4 hours.
+              </div>
+          </div>
+          
+          <div class="faq-item">
+              <div class="faq-question">What will be the format of the logo?</div>
+              <div class="faq-answer">
+                  We can provide you with any format you require. You can simply share your machine name or file format name, we will deliver your design in required format.
+              </div>
+          </div>
+          
+          <div class="faq-item">
+              <div class="faq-question">How will I get my file?</div>
+              <div class="faq-answer">
+                  Your design file will be delivered via email address, in case you require any other way we can send it to you.
+              </div>
+          </div>
+          
+          <div class="faq-item">
+              <div class="faq-question">What payment method do you use?</div>
+              <div class="faq-answer">
+                  Payments processed through PayPal and stripe. So, you can pay through either PayPal or Debit/credit cards. but if you have any difficulty in payment then you can contact us. So, we can provide you the alternative way.
+              </div>
+          </div>
+          
+          <div class="faq-item">
+              <div class="faq-question">What's 3D Embroidery or 3D puff embroidery and regular Embroidery?</div>
+              <div class="faq-answer">
+                  3D embroidery or 3D puff embroidery is a three-dimensional look to your embroidery design. 3D embroidery is a cool effect because it can make a design really stand out on a cap. 3D Embroidery would be raised and more thread and use for cap only. Regular embroidery Work out on every Appare.
+              </div>
+          </div>
+    
+          <div class="faq-item">
+              <div class="faq-question">How can I place the order?</div>
+              <div class="faq-answer">
+                  Place an order on following gmail: <a href="mailto:rutujachikane0@gmail.com">rutujachikane0@gmail.com</a>
+              </div>
+          </div>
+    
+          <div class="faq-item">
+              <div class="faq-question">What digitizing software do you use?</div>
+              <div class="faq-answer">
+                  WilcomES, Pulse and so on
+              </div>
+          </div>
+    
+          <div class="faq-item">
+              <div class="faq-question">What are the supported file formats for digitizing?</div>
+              <div class="faq-answer">
+                  .png, .jpg, .cdr, .pdf, .ai
+              </div>
+          </div>
+    
+          <div class="faq-item">
+              <div class="faq-question">How can I convey my instructions to the designer?</div>
+              <div class="faq-answer">
+                  You can send the required information along with the artwork mail you send. You can provide following details:
+                  <ul>
+                      <li>Design size: cm, inches or mm.</li>
+                      <li>Placement: Cap, left chest, full back, beanie</li>
+                      <li>Garments: Towel, frame, blanket, t-shirt, pique knit, fleece, etc.</li>
+                      <li>Output file: .emb, .pof, .dst, .pdf</li>
+                      <li>Turnaround time: 24 Hrs or rush (12 hrs)</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+    </body>
+  </body>
+  {% endblock content %}
+

@@ -1,0 +1,45 @@
+{% extends 'embroidery/admin_base.html' %}
+{% load static %}
+{% block content %}
+<br>
+{%include 'embroidery/admin_dashboard_cards.html'%}
+<br><br><br><br><br>
+
+<hr><hr>
+<div class="container" >
+
+    <div class="panel panel-primary" >
+      <div class="panel-heading text-center">
+        <h6 class="panel-title">Recent Quotes</h6>
+      </div>
+      <table class="table table-hover table-bordered" id="quote-table">
+        <thead class="table-dark">
+          <tr>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Design Type</th>
+            <th>Turnaround</th>
+            <th>Submitted On</th>
+          </tr>
+        </thead>
+        {% for quote in recent_quotes %}
+        <tr>
+          <td>{{ quote.full_name }}</td>
+          <td>{{ quote.email }}</td>
+          <td>{{ quote.size }}</td> {# Assuming 'size' = design type #}
+          <td>{{ quote.additional_info }}</td> {# Assuming this has turnaround info #}
+          <td>{{ quote.submission_date|date:"d M Y, h:i A" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5" class="text-center">No recent quotes available.</td>
+        </tr>
+        {% endfor %}
+      </table>
+      
+
+  </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,159 @@
+<html>
+  {% load static %}
+  <head>
+    <title>Quote Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f2f5;
+      }
+      .navbar {
+        background-color: #3e454c;
+        border-radius: 0;
+        margin-bottom: 0;
+      }
+      .navbar-brand {
+        color: white !important;
+        font-weight: bold;
+      }
+      .navbar-nav > li > a {
+        color: white !important;
+      }
+      .container {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 30px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      .form-group label {
+        font-weight: 500;
+        color: #555;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      .form-group input[type="submit"] {
+        background-color: #b34700;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 12px;
+        border-radius: 5px;
+      }
+      .form-group input[type="submit"]:hover {
+        background-color: #993d00;
+      }
+      .form-group .required {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Universe Digitizing</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-menu">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/index.html">Home</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login & Sign Up <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/customerlogin">Login</a></li>
+                <li><a href="/customersignup">Sign Up</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/embdigitizing">Embroidery Digitizing</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/aboutus">About Us</a></li>
+                <li><a href="/contactus">Contact</a></li>
+                <li><a href="/portfolio">Portfolio</a></li>
+                <li><a href="/faq">FAQ</a></li>
+              </ul>
+            </li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="/adminclick">Admin</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="container">
+        <h2>Send us your image and we will send you a free quote</h2>
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="full_name">Full Name <span class="required">*</span></label>
+            <input type="text" id="full_name" name="full_name" placeholder="Full Name" required>
+          </div>
+          <div class="form-group">
+            <label for="design_name">Design Name <span class="required">*</span></label>
+            <input type="text" id="design_name" name="design_name" placeholder="Design Name" required>
+          </div>
+          <div class="form-group">
+            <label for="size">Size <span class="required">*</span></label>
+            <select id="size" name="size" required>
+              <option value="" disabled selected>Choose an option</option>
+              <option value="capfront">Cap Front</option>
+              <option value="leftchest">Left Chest</option>
+              <option value="jacketback">Jacket Back</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="phone_number">Phone Number <span class="required">*</span></label>
+            <input type="tel" id="phone_number" name="phone_number" placeholder="+1 (213) 788-6748" required pattern="^\+?[1-9]\d{1,14}$">
+          </div>
+          <div class="form-group">
+            <label for="email">Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <label for="additional_info">Additional Information</label>
+            <textarea id="additional_info" name="additional_info"></textarea>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Submit">
+          </div>
+        </form>
+    </div>
+    {% include "embroidery/footer.html" %}
+
+  </body>
+</html>

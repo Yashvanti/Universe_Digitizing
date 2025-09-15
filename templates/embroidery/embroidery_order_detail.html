@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embroidery Order Detail</title>
+</head>
+<body>
+    <h1>Embroidery Order Detail</h1>
+    <p><strong>Order ID:</strong> {{ order.id }}</p>
+    <p><strong>Complexity:</strong> {{ order.complexity }}</p>
+    <p><strong>Size:</strong> {{ order.size }}</p>
+    <p><strong>File Format:</strong> {{ order.file_format }}</p>
+    <p><strong>Turnaround:</strong> {{ order.turnaround }}</p>
+    <p><strong>Additional Info:</strong> {{ order.additional_info|default:"N/A" }}</p>
+    <p><strong>Uploaded File:</strong> <a href="{{ order.file_upload.url }}" target="_blank">Download</a></p>
+    <p><strong>Submitted At:</strong> {{ order.submitted_at|date:"Y-m-d H:i A" }}</p>
+    <a href="{% url 'admin_view_embroidery_orders' %}">Back to Orders</a>
+</body>
+</html>

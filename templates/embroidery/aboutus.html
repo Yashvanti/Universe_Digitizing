@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Universe Digitizing</title>
+  <style media="screen">
+    .footer{
+      position: fixed;
+    }
+  </style>
+</head>
+
+<body style="background-color:#FFC0CB;">
+  {%if request.user.is_authenticated%}
+    {% include "embroidery/customer_navbar.html" %}
+  {%else%}
+    {% include "embroidery/navbar.html" %}
+  {%endif%}
+  <br><br><br>
+<h3 style="text-align:center;">"- Team introduction
+  <br>
+
+  Our Team:<br>
+  Behind every great company is a great team!
+  Get to know the talented individuals who make up our team of designers, digitizers, customer service specialists, and problem solver
+  <br>
+  - Mission and values:<br>
+  Our mission has always been to provide top-quality digitized and vector files to embroiderers around the world, while still maintaining the same dedication to excellent customer service and fair pricing.
+  " </h3>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  {% include "embroidery/footer.html" %}
+</body>
+
+
+</html>

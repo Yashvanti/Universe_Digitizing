@@ -1,0 +1,71 @@
+{% load static %}
+{% load mathfilters %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pay for Embroidery</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h2>Payment for Embroidery ID: {{ embroidery.id }}</h2>
+    <p>Amount: ₹250</p>
+
+    <button id="pay-btn">Pay Now</button>
+
+    <script>
+        document.getElementById('pay-btn').addEventListener('click', function () {
+            const formData = new FormData();
+            formData.append('embroidery_id', '{{ embroidery.id }}');
+
+            fetch('/create_order/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: formData
+            })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Network response was not OK");
+                }
+                return res.json();
+            })
+            .then(order => {
+                const options = {
+                    key: '{{ razorpay_key }}', // ✅ Key ID coming from backend
+                    amount: order.amount,
+                    currency: order.currency,
+                    name: 'Universe Digitizing',
+                    description: 'Payment for embroidery',
+                    order_id: order.id,
+                    handler: function (response) {
+                        fetch('/verify_payment/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            body: JSON.stringify({
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_signature: response.razorpay_signature
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            alert(data.status);
+                        });
+                    }
+                };
+                const rzp = new Razorpay(options);
+                rzp.open();
+            })
+            .catch(error => {
+                alert("Error creating Razorpay order: " + error.message);
+            });
+        });
+    </script>
+</body>
+</html>

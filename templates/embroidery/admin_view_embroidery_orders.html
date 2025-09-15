@@ -1,0 +1,138 @@
+{% extends 'embroidery/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embroidery Orders</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #34495e;
+            color: #fff;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #fff;
+            margin: 0 3px;
+        }
+
+        .view-btn {
+            background-color: #2980b9;
+        }
+
+        .delete-btn {
+            background-color: #c0392b;
+        }
+
+        .download-link {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .empty-row {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Embroidery Orders</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Complexity</th>
+                <th>Size</th>
+                <th>File Format</th>
+                <th>Turnaround</th>
+                <th>Additional Info</th>
+                <th>Uploaded File</th>
+                <th>Submitted At</th>
+                <th>Email<th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.complexity }}</td>
+                <td>{{ order.size }}</td>
+                <td>{{ order.file_format }}</td>
+                <td>{{ order.turnaround }}</td>
+                <td>{{ order.additional_info|default:"N/A" }}</td>
+                <td>
+                    {% if order.file_upload %}
+                        <a class="download-link" href="{{ order.file_upload.url }}" target="_blank">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    {% else %}
+                        No File
+                    {% endif %}
+                </td>
+                <td>{{ order.submission_date|date:"Y-m-d" }}</td>
+                <td>{{ order.email }}</td>
+                <td>
+                    
+                    <a href="{% url 'admin_delete_embroidery_order' order.id %}" class="delete-btn">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9" class="empty-row">No embroidery orders found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+{% endblock content %}
+

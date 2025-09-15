@@ -1,0 +1,187 @@
+{% extends 'embroidery/navbar.html' %}
+{% load static %}
+{% block content %}
+<title>Embroidery Digitizing Services</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+
+<style>
+  /* Your existing CSS stays unchanged */
+  body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .breadcrumb {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .breadcrumb a {
+    color: #e67e22;
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  .product-page {
+    display: flex;
+    justify-content: space-between;
+  }
+  .product-image {
+    width: 45%;
+  }
+  .product-image img {
+    width: 100%;
+  }
+  .product-details {
+    width: 50%;
+  }
+  .product-details h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .product-details .rating {
+    color: #f39c12;
+    margin-bottom: 20px;
+  }
+  .product-details .rating i {
+    margin-right: 5px;
+  }
+  .product-details .options {
+    margin-bottom: 20px;
+  }
+  .product-details .options label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .product-details .options select,
+  .product-details .options input[type="text"],
+  .product-details .options input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .product-details .quantity {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .product-details .quantity input {
+    width: 50px;
+    text-align: center;
+    margin-right: 10px;
+  }
+  .product-details .submit {
+    background-color: #e67e22;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .product-details .submit:hover {
+    background-color: #d35400;
+  }
+</style>
+
+<div class="container">
+  <div class="breadcrumb">
+    <a href="{% url 'index' %}">Home</a> &gt;
+    <a href="#">Services</a> &gt; Embroidery Digitizing Services
+  </div>
+
+  <div class="product-page">
+    <div class="product-image">
+      <img src="{% static 'images/tiger.jpg' %}" alt="Embroidery Digitizing Services Image" width="400" height="400" />
+    </div>
+
+    <div class="product-details">
+      <h1>Embroidery Digitizing Services</h1>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half-alt"></i>
+        (965 customer reviews)
+      </div>
+
+      <!-- ✅ FORM START -->
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="options">
+          <label for="complexity">Complexity</label>
+          <select name="complexity" required>
+            <option value="Simple">Simple</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Complex">Complex</option>
+            <option value="Special">Special</option>
+          </select>
+
+          <label for="size">Size</label>
+          <select name="size" required>
+            <option value="Left Chest">Left Chest</option>
+            <option value="Cap Front">Cap Front</option>
+            <option value="Cap Back">Cap Back</option>
+            <option value="Cap Side">Cap Side</option>
+            <option value="Full Back/Front">Full Back/Front</option>
+            <option value="Sleeve">Sleeve</option>
+          </select>
+
+          <label for="file_format">File Format</label>
+          <select name="file_format" required>
+            <option value="DST">DST</option>
+            <option value="EMB">EMB</option>
+            <option value="PES">PES</option>
+            <option value="Melco">Melco</option>
+          </select>
+
+          <label for="turnaround">Turnaround</label>
+          <select name="turnaround" required>
+            <option value="12hr">12hr</option>
+            <option value="24hr">24hr</option>
+            <option value="48hr">48hr</option>
+          </select>
+
+          <label for="additional_info">Additional Information</label>
+          <input type="text" name="additional_info" required>
+
+          <label for="file_upload">Choose File</label>
+          <input type="file" name="file_upload" required>
+        </div>
+
+        <div class="quantity">
+          <button type="submit" class="submit">Submit</button>
+        </div>
+      </form>
+      <!-- ✅ FORM END -->
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll(".accordion h3").forEach((accordionHeader) => {
+    accordionHeader.addEventListener("click", () => {
+      const content = accordionHeader.nextElementSibling;
+      content.style.display =
+        content.style.display === "block" ? "none" : "block";
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const button = document.querySelector(".submit");
+    button.addEventListener("click", function () {
+      alert("Submitted Successfully!");
+    });
+  });
+</script>
+
+{% include "embroidery/footer.html" %}
+{% endblock content %}

@@ -1,0 +1,183 @@
+{% extends 'embroidery/navbar.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <title>Pricing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #00FFFF;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .breadcrumb {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #000;
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .title {
+            text-align: center;
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+        .pricing-table {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .pricing-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+        }
+        .pricing-card .ribbon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #e67e22;
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 12px;
+            transform: rotate(45deg);
+            transform-origin: top right;
+        }
+        .pricing-card h3 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .pricing-card .coupon-code {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        .pricing-card .price {
+            font-size: 48px;
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .pricing-card .price span {
+            font-size: 24px;
+            color: #7f8c8d;
+            text-decoration: line-through;
+        }
+        .pricing-card .price small {
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .pricing-card ul li {
+            font-size: 14px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .pricing-card ul li i {
+            color: #e67e22;
+            margin-right: 10px;
+        }
+        .pricing-card .btn {
+            background-color: #e67e22;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+            font-weight: 700;
+        }
+        .pricing-card .btn:hover {
+            background-color: #d35400;
+        }
+        .additional-info {
+            margin-top: 40px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .additional-info h3 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .additional-info p {
+            font-size: 14px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .additional-info ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .additional-info ul li {
+            font-size: 14px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> » Pricing
+        </div>
+        <div class="title">
+            Pick a plan that fits your need
+        </div>
+        <div class="pricing-table">
+            <div class="pricing-card">
+                <h3>Digitizing Pricing</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Normal service (24 hrs) - $1 per 2000 Stitches</li>
+                    <li><i class="fas fa-check-circle"></i> Same day (12 hrs) - as per design</li>
+                </ul>
+            </div>
+            <div class="pricing-card">
+                <h3>Editing Pricing</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Minor Editing - Free</li>
+                    <li><i class="fas fa-check-circle"></i> Down/Up size less than 30% - Free</li>
+                    <li><i class="fas fa-check-circle"></i> Down/Up size more than 30% - Fee applicable</li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    {% include "embroidery/footer.html" %}
+
+</body>
+{% endblock content %}

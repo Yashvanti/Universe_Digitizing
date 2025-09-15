@@ -1,0 +1,520 @@
+{% extends 'embroidery/homebase.html' %}
+{% load static %}
+{% block content %}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.154.0/examples/js/controls/OrbitControls.js"></script>
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #000; /* Background color for the universe effect */
+    }
+
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* Ensure the universe effect stays in the background */
+    }
+
+    .header {
+        background-color: transparent; /* Make navbar transparent */
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .header .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .header .search-bar {
+        display: flex;
+        align-items: center;
+    }
+
+    .header .search-bar input {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 3px;
+        width: 300px;
+    }
+
+    .header .search-bar button {
+        background-color: #ffcc00;
+        border: none;
+        padding: 10px;
+        margin-left: 5px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .header .nav-links {
+        display: flex;
+        align-items: center;
+    }
+
+    .header .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin-left: 20px;
+        font-size: 16px;
+    }
+
+    .header .cart {
+        display: flex;
+        align-items: center;
+        background-color: #ffcc00;
+        padding: 10px;
+        border-radius: 3px;
+        color: black;
+        margin-left: 20px;
+        font-size: 16px;
+    }
+
+    .main-content {
+        display: flex;
+        padding: 40px;
+        background-color: white;
+        margin: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transform: perspective(1000px) rotateX(10deg);
+    }
+
+    .main-content .image-section {
+        flex: 1;
+        text-align: center;
+    }
+
+    .main-content .image-section img {
+        max-width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transform: perspective(500px) translateZ(50px);
+    }
+
+    .main-content .text-section {
+        flex: 2;
+        padding-left: 40px;
+    }
+
+    .main-content .text-section h1 {
+        font-size: 36px;
+        margin-top: 0;
+        color: #333;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        transform: perspective(500px) translateZ(20px);
+    }
+
+    .main-content .text-section p {
+        font-size: 18px;
+        color: #666;
+    }
+
+    .main-content .text-section .buttons {
+        margin-top: 20px;
+    }
+
+    .main-content .text-section .buttons button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        margin-right: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transform: perspective(500px) translateZ(20px);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .main-content .text-section .buttons button:hover {
+        transform: perspective(500px) translateZ(50px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .main-content .text-section .buttons button:last-child {
+        background-color: #28a745;
+    }
+
+    .additional-content {
+        padding: 40px;
+        background-color: white;
+        margin: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .additional-content .item {
+        display: flex;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+
+    .additional-content .item img {
+        max-width: 150px;
+        margin-right: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transform: perspective(500px) translateZ(30px);
+    }
+
+    .additional-content .item .description {
+        flex: 1;
+    }
+
+    .additional-content .item .description h2 {
+        font-size: 28px;
+        margin: 0;
+        color: #333;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        transform: perspective(500px) translateZ(20px);
+    }
+
+    .additional-content .item .description p {
+        font-size: 18px;
+        color: #666;
+    }
+
+    .additional-content .item .description button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transform: perspective(500px) translateZ(20px);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .additional-content .item .description button:hover {
+        transform: perspective(500px) translateZ(50px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+    /* Floating Chatbot Button */
+#chatbot-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: bounce 1.5s infinite;
+}
+
+/* Bouncing animation */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Chatbot Container */
+#chatbot-container {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 320px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Chat Header */
+#chat-header {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#chat-header button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Chatbox */
+#chatbox {
+    height: 250px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #f9f9f9;
+}
+
+/* Chat Input */
+#chat-input-container {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+#chatInput {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#chat-input-container button {
+    margin-left: 5px;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Chat Message Bubbles */
+.bot-message, .user-message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.bot-message {
+    justify-content: flex-start;
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.chat-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.user-message .chat-avatar {
+    margin-right: 0;
+    margin-left: 8px;
+}
+
+.botText, .userText {
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    max-width: 80%;
+}
+
+.botText {
+    background: #e0e0e0;
+    color: black;
+}
+
+.userText {
+    background: #007bff;
+    color: white;
+}
+
+</style>
+
+<body>
+<div id="universe-background"></div>
+<script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const particles = new THREE.BufferGeometry();
+    const particleCount = 5000;
+    const positions = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 1000;
+    }
+
+    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    const particleMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.7,
+    });
+
+    const particleSystem = new THREE.Points(particles, particleMaterial);
+    scene.add(particleSystem);
+
+    camera.position.z = 200;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        particleSystem.rotation.y += 0.002;
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+</script>
+
+<div class="main-content">
+    <div class="image-section">
+        <img alt="Embroidery of a tiger with green leaves" height="300" src="{% static 'images/tiger.jpg' %}" width="300"/>
+    </div>
+    <div class="text-section">
+        <h1>Welcome To Universe Digitizing</h1>
+        <p>Do you need machine embroidery digitizing and Vector art service with super fast turnaround &amp; excellent Quality?</p>
+        <div class="buttons">
+            <a href="{% url 'add_quote' %}">
+                <button>Get A Quote</button>
+            </a>
+            <a href="{% url 'embroiderydigitizing' %}">
+                <button>Instant Order</button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="additional-content">
+    <div class="item">
+        <img alt="Embroidery of a rabbit under a mushroom" height="150" src="{% static 'images/WhatsApp Image 2024-02-21 at 22.11.49_23344fca.jpg' %}" width="150"/>
+        <div class="description">
+            <h2>Embroidery Digitizing</h2>
+            <p>We can produce an embroidery file for your machine. You need to just upload your image and select the options that suit your needs.</p>
+        </div>
+    </div>
+</div>
+
+  <!-- Floating Chatbot Button -->
+<div id="chatbot-button" onclick="toggleChat()">
+  💬
+</div>
+
+<!-- Chatbot Container -->
+<div id="chatbot-container">
+  <div id="chat-header">
+      <h4>Embroidery Bot</h4>
+      <button onclick="toggleChat()">X</button>
+  </div>
+  <div id="chatbox">
+      <div class="bot-message">
+          <img src="{% static 'images/bot.jpeg' %}" class="chat-avatar">
+          <span class="botText">Hello! How can I assist you today?</span>
+      </div>
+  </div>
+  <div id="typing-indicator" style="display: none;">Bot is typing...</div>
+  <div id="chat-input-container">
+      <input id="chatInput" type="text" placeholder="Type a message..." onkeypress="sendMessage(event)">
+      <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        document.getElementById("chatbot-container").style.display = "block";
+    }, 3000);  // Auto-open chatbot after 3 seconds
+});
+
+function toggleChat() {
+    var chatbox = document.getElementById("chatbot-container");
+    chatbox.style.display = (chatbox.style.display === "none") ? "block" : "none";
+}
+
+function sendMessage(event) {
+    if (event && event.key !== "Enter") return;
+
+    var userText = document.getElementById("chatInput").value;
+    if (userText === "") return;
+
+    var chatbox = document.getElementById("chatbox");
+
+    // Display user message
+    var userMessage = `
+        <div class="user-message">
+            <span class="userText">${userText}</span>
+            <img src="{% static 'images/user.jpg' %}" class="chat-avatar">
+        </div>`;
+    chatbox.innerHTML += userMessage;
+
+    // Show typing indicator
+    document.getElementById("typing-indicator").style.display = "block";
+
+    // Send message to Django chatbot
+    fetch('/chatbot/?message=' + encodeURIComponent(userText))
+    .then(response => response.json())
+    .then(data => {
+        setTimeout(() => {
+            document.getElementById("typing-indicator").style.display = "none";
+            
+            var botMessage = `
+                <div class="bot-message">
+                    <img src="{% static 'images/bot.jpeg' %}" class="chat-avatar">
+                    <span class="botText">${data.response}</span>
+                </div>`;
+            chatbox.innerHTML += botMessage;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }, 1000);
+    });
+
+    document.getElementById("chatInput").value = "";  // Clear input field
+}
+
+</script>
+{% include "embroidery/footer.html" %}
+
+<script>
+    {% if messages %}
+    {% for message in messages %}
+    alert('{{ message }}');
+    {% endfor %}
+    {% endif %}
+</script>
+<br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<script>
+  console.log("Chatbot JavaScript Loaded!");
+</script>
+
+
+</body>
+{% endblock content %}

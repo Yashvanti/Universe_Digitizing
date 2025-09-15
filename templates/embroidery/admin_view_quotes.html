@@ -1,0 +1,77 @@
+{% extends 'embroidery/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style>
+    a:link {
+      text-decoration: none;
+    }
+    h6 {
+      text-align: center;
+    }
+    .row {
+      margin: 100px;
+    }
+  </style>
+</head>
+
+<div class="container">
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h6 class="panel-title">Total Quotes Submitted</h6>
+    </div>
+    <table class="table table-hover table-bordered" id="dev-table">
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Design Name</th>
+          <th>Size</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Additional Info</th>
+          <th>Submitted At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for quote in quotes %}
+        <tr>
+          <td>{{ quote.full_name }}</td>
+          <td>{{ quote.design_name }}</td>
+          <td>{{ quote.size }}</td>
+          <td>{{ quote.phone_number }}</td>
+          <td>{{ quote.email }}</td>
+          <td>{{ quote.additional_info }}</td>
+          <td>{{ quote.submission_date|date:"Y-m-d H:i A" }}</td>
+          <td>
+            <a class="btn btn-primary btn-xs" href="{% url 'update-quote' quote.id %}">
+              <span class="glyphicon glyphicon-edit"></span>
+            </a>
+            <td>
+              {% if file.id %}
+                <form method="post" action="{% url 'delete_cheatsheet' file.id %}">
+                  {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              {% endif %}
+
+          </td>
+          
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="8" class="text-center">No quotes submitted yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock content %}
